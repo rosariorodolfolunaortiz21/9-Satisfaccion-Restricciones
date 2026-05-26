@@ -28,11 +28,24 @@ class Crucigrama(csps.ProblemaCSP):
         # Dominios
         self.D = {}
 
-        # Vecinos
-        self.N = {}
+        # Horizontales
+        for i, palabra in enumerate(horizontales):
 
-        for x in self.X:
-            self.N[x] = self.X.difference({x})
+            dominio = set()
 
-    def restriccion_binaria(self, xi, vi, xj, vj):
-        pass
+            for fila in range(n):
+                for col in range(m - len(palabra) + 1):
+                    dominio.add((fila, col))
+
+            self.D[f"H{i}"] = dominio
+
+        # Verticales
+        for i, palabra in enumerate(verticales):
+
+            dominio = set()
+
+            for fila in range(n - len(palabra) + 1):
+                for col in range(m):
+                    dominio.add((fila, col))
+
+            self.D[f"V{i}"] = dominio

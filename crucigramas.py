@@ -94,3 +94,33 @@ class Crucigrama(csps.ProblemaCSP):
                         return False
 
         return True
+
+
+def imprimir_tablero(csp, solucion):
+
+    tablero = [
+        ["." for _ in range(csp.m)]
+        for _ in range(csp.n)
+    ]
+
+    for var, valor in solucion.items():
+
+        fila, col = valor
+
+        if var[0] == "H":
+
+            palabra = csp.horizontales[int(var[1:])]
+
+            for i, letra in enumerate(palabra):
+                tablero[fila][col + i] = letra
+
+        else:
+
+            palabra = csp.verticales[int(var[1:])]
+
+            for i, letra in enumerate(palabra):
+                tablero[fila + i][col] = letra
+
+    for fila in tablero:
+        print(" ".join(fila))
+

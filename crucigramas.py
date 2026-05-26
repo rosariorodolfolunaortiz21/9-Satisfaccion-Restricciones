@@ -124,3 +124,36 @@ def imprimir_tablero(csp, solucion):
     for fila in tablero:
         print(" ".join(fila))
 
+
+def prueba_crucigrama(verticales, horizontales, consistencia=1):
+
+    problema = Crucigrama(verticales, horizontales)
+
+    print("\n==========================")
+    print("CRUCIGRAMA")
+    print("==========================")
+
+    t0 = time.time()
+
+    solucion = csps.asignacion_completa(
+        problema,
+        consistencia=consistencia,
+        verbose=False
+    )
+
+    tiempo = time.time() - t0
+
+    if solucion is None:
+
+        print("No hay solución.")
+        print("Se necesita una retícula más grande.")
+
+    else:
+
+        print("Solución encontrada:\n")
+
+        imprimir_tablero(problema, solucion)
+
+    print("\nBacktrackings:", problema.backtracking)
+    print("Tiempo:", round(tiempo, 4), "segundos")
+
